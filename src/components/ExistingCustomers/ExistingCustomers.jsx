@@ -102,7 +102,7 @@ class ExistingCustomers extends Component {
     }
 
     handleCustomerSelect(selectedCustomer) {
-        const { customerSites } = this.state;
+        const { customerSites } = this.state; console.log(selectedCustomer);
         if (selectedCustomer && selectedCustomer.orgId) {
             axios.get(`http://40.70.129.139/api/v1/fuel/wholesale/bpm/ui/price/pricedetails?customerId=${selectedCustomer.orgId}`)
                 .then(res => {
@@ -110,7 +110,7 @@ class ExistingCustomers extends Component {
                         const { customerDailyPriceDetailsList: priceDetails } = res.data;
                         const selectedMenuIndex = customerSites.findIndex(customer => customer.orgId === selectedCustomer.orgId);
                         const selectedData = customerSites.find(customer => customer.orgId === selectedCustomer.orgId);
-                        if (selectedCustomer.sites.length > 1) {
+                        if (selectedCustomer.sites !== undefined && selectedCustomer.sites.length > 1) {
                             this.setState({
                                 selectItem: selectedMenuIndex
                             });
