@@ -27,7 +27,6 @@ class PriceTableTerminal extends Component {
       <Fragment>
         <div className="custom-control custom-checkbox d-flex justify-content-between">
           <div>
-            <input checked={terminalChecked} type="checkbox" className="custom-control-input" id={`terminal_${terminal.terminalId}`} onChange={this.handleTerminalChecked.bind(this)} />
             <label className="custom-control-label lead font-weight-bolder text-success" htmlFor={`terminal_${terminal.terminalId}`}>
               {terminal.terminalName}
             </label>
