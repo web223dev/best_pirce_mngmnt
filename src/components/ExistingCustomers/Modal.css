@@ -1,0 +1,98 @@
+.modal-dialog {
+    width: 828px !important;
+    max-width: 100%;
+    margin: 27%;
+    margin-top: 1%;
+    text-align: center;
+}
+
+    .modal > .header {
+        width: 100%;
+        border-bottom: 1px solid gray;
+        font-size: 18px;
+        text-align: center;
+        padding: 5px;
+    }
+
+.modal-content {
+    width: 100%;
+    padding: 10px 5px;
+}
+
+.modal > .actions {
+    width: 100%;
+    padding: 10px 5px;
+    margin: auto;
+    text-align: center;
+}
+
+.modal > .close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #cfcece;
+}
+.linewidth {
+    margin-top: 21px;
+    color: #696969;
+}
+.sepline{
+    border-radius:15px;
+    height:3px;
+}
+.sepline2 {
+    border-radius: 15px;
+    height: 1px;
+}
+.pricediv{
+    margin-top:5px;
+}
+
+.email-logo {
+    width: 200px;
+}
+
+.card {
+    border: 0px;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 0.25rem;
+    line-height: .5em;
+}
+
+ModalBody {
+    display: none;
+}
+
+.text-secondary {
+    color: #287CBA;
+}
+
+.ExistingCustomers  .col-10 {
+    padding-left: 3% !important;
+}
+@media (min-width: 576px) {
+    .jumbo .contentdiv {
+        padding: 2rem 2rem !important;
+    }
+}
+
+
+
+
+
+
+@media screen and (min-width: 1500px) {
+    .ExistingCustomers .col-10 {
+        padding-left: 4% !important;
+    }
+}

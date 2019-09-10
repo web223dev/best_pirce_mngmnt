@@ -1,0 +1,11 @@
+.footer-container-fluid {
+    position: fixed;
+    z-index: 10000;
+    background-color: azure !important;
+    width: 103%;
+    text-align: center !important;
+    height: 10vh;
+    padding-top: 15px;
+    margin-top: -15px;
+}
+

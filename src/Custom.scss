@@ -1,0 +1,146 @@
+html, body {
+    font-family: helveticaneueltstd-lt,Helvetica,Arial,sans-serif;
+}
+
+body {
+    font-size: 15px;
+    line-height: 1.42857143;
+}
+
+header > hr, footer > hr {
+    margin-top: -17px;
+    margin-bottom: 0rem;
+    margin-left: -2vw;
+    margin-right: -91vw;
+    border: 0;
+    border-top: 5px solid #EC2526;
+    border-bottom: 5px solid #107F62;
+    box-shadow: 10px 14px 10px #adb5bd;
+}
+
+.hr {
+    margin-top: 10px;
+    margin-bottom: 1rem;
+    margin-left: -2vw;
+    margin-right: -91vw;
+    border: 0;
+    border-top: 5px solid #EC2526;
+    border-bottom: 5px solid #107F62;
+    box-shadow: 10px 14px 10px #adb5bd;
+}
+
+footer > hr {
+    box-shadow: 10px -5px 10px #494646;
+}
+
+.hr {
+    box-shadow: 10px -5px 10px #494646;
+}
+
+
+
+#head, #foot {
+    background-color: #ffffff;
+    margin-left: -2vw;
+    margin-right: -2vw;
+    color: #008062;
+    font-weight: bold;
+}
+
+#foot {
+    font-size: 1em;
+    margin-top: 0vh;
+    margin-bottom: 0;
+    width: 105%;
+    background-color: aqua !important;
+
+}
+
+header, footer {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+header {
+    padding-left: 10px;
+}
+
+
+
+.logo {
+    margin-top: 2px;
+
+}
+
+.logoRight {
+    margin-left: -74px;
+}
+
+.logoLeft {
+ margin-left: 32px;
+}
+
+.header-text {
+    margin-top: 0;
+    font-family: trasandina;
+    font-weight: 700;
+    
+    font-size: 2em;
+    color: #2C2F35;
+}
+
+.titleSingleLetter {
+    font-size: larger;
+    color: red;
+    text-shadow: 2px 2px #008062;
+    font-weight: bolder;
+}
+
+.bg-success, .btn-success {
+    background: #2AC38B !important;
+}
+
+.bg-danger, .btn-danger {
+    background-color: #EC2526 !important;
+}
+
+.bg-warning, .btn-warning {
+    background-color: #F58220 !important;
+}
+
+.bg-primary, .btn-primary {
+    background-color: #68A2D2 !important;
+}
+
+.bg-secondary, .btn-secondary {
+    background-color: #5B616B !important;
+}
+
+.bg-light-gray {
+    background-color: #F7F7F5;
+}
+
+.h2, h2 {
+    font-size: 1.25rem;
+}
+
+
+
+.btn { 
+    font-size: 1.5rem;
+}
+
+#foot {
+    position: absolute;
+    left: 0;
+    bottom: 5px;
+    right: 0;
+
+}
+
+
+
+.container-fluid {
+    padding-bottom: 60px;
+    margin-top: -7px !important;
+}
