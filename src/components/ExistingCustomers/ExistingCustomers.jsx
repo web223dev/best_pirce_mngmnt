@@ -76,8 +76,7 @@ class ExistingCustomers extends Component {
         return groups;
     }
 
-    handleCustomerSearch(searchCustomer) {
-        const { customerSites } = this.state;
+    handleCustomerSearch(searchCustomer) {  console.log(searchCustomer);
         axios.get('http://best-price-management.7ep-dev.7-eleven.com/api/customer/list')
             .then(res => {
                 if (res.data && res.data.customerDetailsList) {
@@ -86,10 +85,16 @@ class ExistingCustomers extends Component {
                         const cstmers = [];
                         const customerData = this.getCustomerSites(customers);
                         const selectedData = customerData.find( customer => customer.orgId === searchCustomer.orgId);
-                        cstmers.push(selectedData);
-                        this.setState({
-                            customerSites: cstmers
-                        });
+                        if(selectedData){
+                            cstmers.push(selectedData);
+                            this.setState({
+                                customerSites: cstmers
+                            }); 
+                        } else {
+                            this.setState({
+                                customerSites: []
+                            });
+                        }
                         this.handleCustomerSelect(searchCustomer);
                     } else {
                         this.setState({
