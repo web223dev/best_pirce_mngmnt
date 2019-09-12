@@ -13,7 +13,6 @@ import './existingCustomers.css';
 import PriceTable from './PriceTable';
 import ConvertUpdatingPrices from './ConvertUpdatingPrices';
 
-
 class ExistingCustomers extends Component {
     constructor(props) {
         super(props);
@@ -33,12 +32,13 @@ class ExistingCustomers extends Component {
             updatingPrices: [],
             checkedPrices: [],
             toggleOpen: false,
-            priceSaved: false
+            priceSaved: false,
+            isEmailNotificationSelected: false
         };
     }
 
     componentDidMount() {
-        axios.get('http://40.70.129.139/api/v1/fuel/wholesale/bpm/ui/customer/list')
+        axios.get('http://best-price-management.7ep-dev.7-eleven.com/api/customer/list')
             .then(res => {
                 if (res.data && res.data.customerDetailsList) {
 
@@ -85,7 +85,7 @@ class ExistingCustomers extends Component {
             });
             this.handleCustomerSelect(searchCustomer);
         } else {
-            axios.get('http://40.70.129.139/api/v1/fuel/wholesale/bpm/ui/customer/list')
+            axios.get('http://best-price-management.7ep-dev.7-eleven.com/api/customer/list')
                 .then(res => {
                     if (res.data && res.data.customerDetailsList) {
 
@@ -102,26 +102,27 @@ class ExistingCustomers extends Component {
     }
 
     handleCustomerSelect(selectedCustomer) {
-        const { customerSites } = this.state; console.log(selectedCustomer);
+        const { customerSites } = this.state;
         if (selectedCustomer && selectedCustomer.orgId) {
-            axios.get(`http://40.70.129.139/api/v1/fuel/wholesale/bpm/ui/price/pricedetails?customerId=${selectedCustomer.orgId}`)
+            axios.get(`http://best-price-management.7ep-dev.7-eleven.com/api/price/pricedetails?customerId=${selectedCustomer.orgId}`)
                 .then(res => {
                     if (res.data && res.data.customerDailyPriceDetailsList) {
                         const { customerDailyPriceDetailsList: priceDetails } = res.data;
                         const selectedMenuIndex = customerSites.findIndex(customer => customer.orgId === selectedCustomer.orgId);
                         const selectedData = customerSites.find(customer => customer.orgId === selectedCustomer.orgId);
-                        if (selectedCustomer.sites !== undefined && selectedCustomer.sites.length > 1) {
-                            this.setState({
-                                selectItem: selectedMenuIndex
-                            });
-                        } else {
-                            this.setState({
-                                selectItem: selectedMenuIndex,
-                                users: [selectedData],
-                                priceDetails
-                            });
+                        if(selectedData){
+                            if (selectedCustomer.sites !== undefined && selectedCustomer.sites.length > 1) {
+                                this.setState({
+                                    selectItem: selectedMenuIndex
+                                });
+                            } else {
+                                this.setState({
+                                    selectItem: selectedMenuIndex,
+                                    users: [selectedData],
+                                    priceDetails
+                                });
+                            }
                         }
-
                     }
                 });
         }
@@ -132,7 +133,7 @@ class ExistingCustomers extends Component {
         const { customerSites } = this.state;
         const defaultSelectedMenu = customerSites.find(customer => customer.orgId === parentOrgId);
         if (subOrgId) {
-            axios.get(`http://40.70.129.139/api/v1/fuel/wholesale/bpm/ui/price/pricedetails?customerId=${subOrgId}`)
+            axios.get(`http://best-price-management.7ep-dev.7-eleven.com/api/price/pricedetails?customerId=${subOrgId}`)
                 .then(res => {
                     if (res.data && res.data.customerDailyPriceDetailsList) {
                         const { customerDailyPriceDetailsList: priceDetails } = res.data;
@@ -289,12 +290,25 @@ class ExistingCustomers extends Component {
         });
     }
 
+    handleEmailCheck = () => {
+        const { updatingPrices } = this.state; 
+        updatingPrices.map(updatingPrice => {
+            updatingPrice.emailNotificationSelected = !updatingPrice.emailNotificationSelected;
+            this.setState({
+                isEmailNotificationSelected: updatingPrice.emailNotificationSelected
+            })
+        })
+        this.setState({
+            updatingPrices
+        })
+    }
+
     handleSave() {
         const { updatingPrices } = this.state;
         const convertedPrices = ConvertUpdatingPrices(updatingPrices);
         axios({
             method: 'post',
-            url: 'http://40.70.129.139/api/v1/fuel/wholesale/bpm/ui/transaction/update',
+            url: 'http://best-price-management.7ep-dev.7-eleven.com/api/transaction/update',
             data: convertedPrices,
             validateStatus: (status) => {
                 return true; // I'm always returning true, you may want to do it depending on the status received
@@ -312,7 +326,7 @@ class ExistingCustomers extends Component {
 
     render() {
         const {
-            users, customers, customerSites, currentPage, perPage, upperPageBound, lowerPageBound, selectItem, selectSubItem, priceDetails, toggleOpen, checkedPrices, priceSaved
+            users, customers, customerSites, currentPage, perPage, upperPageBound, lowerPageBound, selectItem, selectSubItem, priceDetails, toggleOpen, checkedPrices, priceSaved, isEmailNotificationSelected
         } = this.state;
 
         const indexOfLastCustomer = currentPage * perPage;
@@ -417,7 +431,13 @@ class ExistingCustomers extends Component {
                                     <input onClick={this.handleSave.bind(this)} type="button" className="btn btn-secondary btn-save" value="Save" />
                                 </div>
                                 <div className="col text-right emailSetup">
-                                    <input type="checkbox" className="" value="" id="emailSetup" />
+                                    <input 
+                                        type="checkbox" 
+                                        onChange={() => this.handleEmailCheck()} 
+                                        className="" 
+                                        value={isEmailNotificationSelected} 
+                                        id="emailSetup" 
+                                        defaultChecked={isEmailNotificationSelected} />
                                     <label className="font-weight-bold" htmlFor="emailSetup">Setup for Email</label>
                                 </div>
                             </div>
