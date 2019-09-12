@@ -77,28 +77,30 @@ class ExistingCustomers extends Component {
     }
 
     handleCustomerSearch(searchCustomer) {
-        if (searchCustomer) {
-            const customers = [];
-            customers.push(searchCustomer);
-            this.setState({
-                customerSites: this.getCustomerSites(customers)
-            });
-            this.handleCustomerSelect(searchCustomer);
-        } else {
-            axios.get('http://best-price-management.7ep-dev.7-eleven.com/api/customer/list')
-                .then(res => {
-                    if (res.data && res.data.customerDetailsList) {
-
-                        const { customerDetailsList: customers } = res.data;
+        const { customerSites } = this.state;
+        axios.get('http://best-price-management.7ep-dev.7-eleven.com/api/customer/list')
+            .then(res => {
+                if (res.data && res.data.customerDetailsList) {
+                    const { customerDetailsList: customers } = res.data;
+                    if (searchCustomer) {
+                        const cstmers = [];
+                        const customerData = this.getCustomerSites(customers);
+                        const selectedData = customerData.find( customer => customer.orgId === searchCustomer.orgId);
+                        cstmers.push(selectedData);
+                        this.setState({
+                            customerSites: cstmers
+                        });
+                        this.handleCustomerSelect(searchCustomer);
+                    } else {
                         this.setState({
                             customers,
                             customerSites: this.getCustomerSites(customers)
                         });
                         this.componentWillReceiveProps();
                     }
-                });
-        }
-
+                    
+                }
+            });
     }
 
     handleCustomerSelect(selectedCustomer) {
@@ -110,7 +112,7 @@ class ExistingCustomers extends Component {
                         const { customerDailyPriceDetailsList: priceDetails } = res.data;
                         const selectedMenuIndex = customerSites.findIndex(customer => customer.orgId === selectedCustomer.orgId);
                         const selectedData = customerSites.find(customer => customer.orgId === selectedCustomer.orgId);
-                        if(selectedData){
+                        if (selectedData) {
                             if (selectedCustomer.sites !== undefined && selectedCustomer.sites.length > 1) {
                                 this.setState({
                                     selectItem: selectedMenuIndex
@@ -291,7 +293,7 @@ class ExistingCustomers extends Component {
     }
 
     handleEmailCheck = () => {
-        const { updatingPrices } = this.state; 
+        const { updatingPrices } = this.state;
         updatingPrices.map(updatingPrice => {
             updatingPrice.emailNotificationSelected = !updatingPrice.emailNotificationSelected;
             this.setState({
@@ -431,12 +433,12 @@ class ExistingCustomers extends Component {
                                     <input onClick={this.handleSave.bind(this)} type="button" className="btn btn-secondary btn-save" value="Save" />
                                 </div>
                                 <div className="col text-right emailSetup">
-                                    <input 
-                                        type="checkbox" 
-                                        onChange={() => this.handleEmailCheck()} 
-                                        className="" 
-                                        value={isEmailNotificationSelected} 
-                                        id="emailSetup" 
+                                    <input
+                                        type="checkbox"
+                                        onChange={() => this.handleEmailCheck()}
+                                        className=""
+                                        value={isEmailNotificationSelected}
+                                        id="emailSetup"
                                         defaultChecked={isEmailNotificationSelected} />
                                     <label className="font-weight-bold" htmlFor="emailSetup">Setup for Email</label>
                                 </div>

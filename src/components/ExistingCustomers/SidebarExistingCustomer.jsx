@@ -43,9 +43,22 @@ class SidebarExistingCustomer extends Component {
           <div>
             <ul>
               <li>
-                <div onClick={() => onCustomerChange(currentCustomerSites[0])}>
-                  <summary>{currentCustomerSites[0].orgName}</summary>
-                </div>
+                {
+                  currentCustomerSites[0].sites.length !== 1 ? (
+                    <details  >
+                        <summary>{currentCustomerSites[0].orgName}</summary>
+                        {
+                          currentCustomerSites[0].sites.map((site, key) => (
+                            <p className={selectSubItem === key ? 'font-weight-bold' : ''} onClick={() => onSubCustomerChange(site.orgId, currentCustomerSites[0].orgId)} key={key}>{site.orgCode}-{site.orgSubcode}</p>
+                          ))
+                        }
+                      </details>
+                  ):(
+                    <div onClick={() => onCustomerChange(currentCustomerSites[0])}>
+                      <summary>{currentCustomerSites[0].orgName}</summary>
+                    </div>
+                  )
+                }
               </li>
             </ul>
           </div>
